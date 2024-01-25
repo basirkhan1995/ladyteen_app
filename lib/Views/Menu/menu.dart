@@ -139,13 +139,7 @@ class _StartState extends State<Start> {
     showDialog(context: context, builder: (context){
       return const AlertDialog(
         title: LocaleText("created_account"),
-        content: SingleChildScrollView(
-          child: Column(
-            children: [
-              
-            ],
-          ),
-        ),
+
       );
     });
   }

@@ -48,5 +48,13 @@
   "balance": "Balance",
   "search_accounts": "Search accounts",
   "full_name": "Full name",
-  "create_account": "New account"
+  "create_account": "New account",
+  "user": "User",
+  "customer": "Customer",
+  "expense": "Expense",
+  "personnel": "Personnel",
+  "bank": "Bank",
+  "tailor": "Tailor",
+  "category": "Category",
+  "cancel": "Cancel"
 }

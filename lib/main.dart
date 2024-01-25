@@ -1,3 +1,4 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:ladyteen_app/Components/Colors/colors.dart';
@@ -10,11 +11,20 @@ import 'Components/Env/env.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
+
   await Locales.init(['en', 'fa']);
   sqfliteFfiInit();
   databaseFactory = databaseFactoryFfi;
   runApp(const MyApp());
+
+  doWhenWindowReady(() {
+    const minSize = Size(1280, 720);
+    appWindow.minSize = minSize;
+    appWindow.show();
+  });
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

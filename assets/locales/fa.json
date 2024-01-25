@@ -48,5 +48,13 @@
   "balance": "بیلانس",
   "search_accounts": "جستجو حسابها",
   "full_name": "نام و نام خانوادگی",
-  "create_account": "حساب جدید"
+  "create_account": "حساب جدید",
+  "user": "یوزر",
+  "customer": "مشتری",
+  "expense": "مصرف",
+  "personnel": "پرسنل",
+  "bank": "بانک",
+  "tailor": "خیاط",
+  "category": "بخش",
+  "cancel": "انصراف"
 }

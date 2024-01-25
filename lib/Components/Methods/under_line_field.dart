@@ -89,7 +89,7 @@ class ZField extends StatelessWidget {
                             isDense: true,
                             enabledBorder: const UnderlineInputBorder(
 
-                                borderSide: BorderSide(color: primaryColor,width: 1.5)
+                                borderSide: BorderSide(color: Colors.grey,width: 1.5)
                             ),
 
                             focusedBorder: const UnderlineInputBorder(

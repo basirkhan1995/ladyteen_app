@@ -1,3 +1,4 @@
+import 'package:ladyteen_app/Json/account_category_json.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import '../Json/account_json.dart';
@@ -174,8 +175,7 @@ import '../Json/user.dart';
         trnId,
         trnCreatedAt,
         trnUpdatedAt,
-        SUM(COALESCE(debit,0.0)) as totalDebit,
-        SUM(COALESCE(credit,0.0)) as totalCredit
+        SUM(COALESCE(credit,0.0)) - SUM(COALESCE(debit,0.0)) as balance
         
         from accounts as account 
         LEFT JOIN individuals as ind ON account.accHolder = ind.indId
@@ -216,8 +216,7 @@ import '../Json/user.dart';
         trnId,
         trnCreatedAt,
         trnUpdatedAt,
-        SUM(COALESCE(debit,0.0)) as totalDebit,
-        SUM(COALESCE(credit,0.0)) as totalCredit
+        SUM(COALESCE(credit,0.0)) - SUM(COALESCE(debit,0.0)) as balance
         
         from accounts as account 
         LEFT JOIN individuals as ind ON account.accHolder = ind.indId
@@ -264,6 +263,10 @@ import '../Json/user.dart';
      values (?,?,?,?,?,?,?,?)
      ''',[fullName, nationalId,jobTitle,phone,email,cardNumber,cardName,DateTime.now().toIso8601String()]);
 
+     Map<String,dynamic> record = {
+       "categoryName" : accountCategory
+     };
+
      await db.rawInsert('''
       INSERT INTO accounts 
       (accNumber, accName, accHolder, accStatus, accCategory, accCreatedAt)
@@ -276,6 +279,38 @@ import '../Json/user.dart';
      ''',[usrName,usrPassword,DateTime.now().toIso8601String(),person]);
 
      return person;
+   }
+
+   Future<int> addNewAccount(fullName, nationalId, jobTitle, phone, email, cardNumber, cardName,String usrName, usrPassword, int accCategory)async{
+     final db = await initDB();
+     person = await db.rawInsert(''' 
+     INSERT INTO individuals (indFullName,nationalId,jobTitle,indPhone,indEmail,indCardNumber,indCardName,startedAt)
+     values (?,?,?,?,?,?,?,?)
+     ''',[fullName, nationalId,jobTitle,phone,email,cardNumber,cardName,DateTime.now().toIso8601String()]);
+
+     //List<Map<String, dynamic>> res;
+
+      await db.rawInsert('''
+      INSERT INTO accounts 
+      (accNumber, accName, accHolder, accStatus, accCategory, accCreatedAt)
+      values ((select IFNULL(MAX(accNumber),99) +1 from accounts),?,?,?,?,?)
+      ''',[fullName, person,1,accCategory,DateTime.now().toIso8601String()]);
+
+      int cat = accCategory;
+      if(cat == 4){
+      await db.rawInsert( ''' 
+      INSERT INTO users (usrName, usrPassword, usrCreatedAt,userOwner) 
+      values (?,?,?,?)
+      ''',[usrName,usrPassword,DateTime.now().toIso8601String(),person]);
+
+      }
+     return person;
+   }
+
+   Future<List<AccountCategoryJson>> getCategoryType()async{
+     final db = await initDB();
+      final List<Map<String, Object?>> result = await db.query("accountCategory",orderBy: 'accCategoryId', where: 'categoryName != ? AND categoryName != ?', whereArgs: ["system","admin"]);
+      return result.map((e) => AccountCategoryJson.fromMap(e)).toList();
    }
 
 

@@ -26,8 +26,7 @@ class AccountJson {
   final int? trnId;
   final String? trnCreatedAt;
   final String? trnUpdatedAt;
-  final double? debit;
-  final double? credit;
+  final double? balance;
 
   AccountJson({
 
@@ -52,9 +51,7 @@ class AccountJson {
     this.trnId,
     this.trnCreatedAt,
     this.trnUpdatedAt,
-    this.debit,
-    this.credit,
-
+    this.balance,
 
   });
 
@@ -67,8 +64,7 @@ class AccountJson {
       accUpdatedAt: json["accUpdatedAt"],
 
       trnId: json["trnId"],
-      debit: json["totalDebit"],
-      credit: json["totalCredit"],
+      balance: json["balance"],
       trnCreatedAt: json["trnCreatedAt"],
       trnUpdatedAt: json["trnUpdatedAt"],
 
@@ -90,8 +86,7 @@ class AccountJson {
     "accNumber": accNumber,
     "accName": accName,
     "trnId": trnId,
-    "totalDebit":debit,
-    "totalCredit":credit,
+    "balance":balance,
     "indFullName":indName,
     "nationalId":nationalId,
   };

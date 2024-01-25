@@ -42,10 +42,16 @@ dependencies:
   flutter_locales: ^3.0.1
   sqflite_common_ffi: ^2.3.0+4
   intl: ^0.18.1
+  dropdown_search: ^5.0.6
+  bitsdojo_window: ^0.1.6
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
